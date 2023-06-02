@@ -1,0 +1,71 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500&display=swap');
+
+body{
+    font-family: -apple-system, 'San Francisco', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+    background-color: black;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+
+    .title{
+        text-align: center;
+        font-family: 'IBM Plex Mono', monospace;
+        color: yellow;
+        padding-top: 5%;
+    }
+    .main{
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .container{
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        
+        .record{       
+            color: white;
+            
+
+            button{
+                display: flex;
+                text-align: center;
+                align-items: center;
+                justify-content: center;
+                margin: 10px 0 10px 0;
+                width: 200px;
+                height: 40px;
+                background-color: #90e606;
+                border: none;
+                color: black;
+                font-weight: bold;
+                cursor: pointer;
+
+                &:hover{
+                    background-color: yellow;
+                }
+            }
+        }
+
+        .right {
+            color: white;
+            font-size: 10px;
+            width: 200px;
+        }
+
+        .game{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            #canvas {
+                margin: 50px;
+                align-items: center;
+            }
+        }
+    }
+   
+}
