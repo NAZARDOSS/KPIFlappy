@@ -12,7 +12,6 @@ class Bird {
 
   moveUp() {
       this.yPos -= 35;
-      if (this.sounds) this.flySound.play();
   }
 
   moveDown() {

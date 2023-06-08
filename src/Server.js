@@ -1,66 +1,66 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const mongoose = require('mongoose');
+const fs = require('fs');
 const cors = require('cors');
+const path = require('path'); // Добавьте эту строку
 
 const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 
-mongoose.connect('mongodb+srv://test:test@cluster1.u9d3exf.mongodb.net/?retryWrites=true&w=majority', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+const databasePath = path.join(__dirname, 'database.json'); 
 
+app.post('/save', (req, res) => {/////////////
+  const { best } = req.body; 
 
-const Score = mongoose.model('Score', {
-  best: Number,
-  createdAt: { type: Date, default: Date.now }
-});
+  fs.readFile(databasePath, 'utf8', (err, data) => {
+    if (err) {
+      console.error(err);
+      res.status(500).json({ error: 'Failed to read database' });
+    } else {
+      const scores = JSON.parse(data);
+      const exists = scores.some((score) => score.best === best);
 
+      if (exists) {
+        res.status(400).json({ error: 'Unable to save equal best score' });
+      } else {
+        const newScore = { best, createdAt: new Date() };
+        scores.push(newScore);
 
-app.post('/save', (req, res) => {
-    const { best } = req.body;
-  
-    
-    Score.exists({ best: best })
-      .then((exists) => {
-        if (exists) {
-          res.status(400).json({ error: "Unable to save equal best score." });
-        } else {
-          
-          const score = new Score({ best });
-  
-          
-          score.save()
-            .then(() => {
-              res.status(200).json({ message: 'Score saved successfully' });
-            })
-            .catch((error) => {
-              res.status(500).json({ error: 'Failed to save score' });
-            });
-        }
-      })
-      .catch((error) => {
-        res.status(500).json({ error: 'Failed to check score existence' });
-      });
+        fs.writeFile(databasePath, JSON.stringify(scores), (err) => {
+          if (err) {
+            console.error(err);
+            res.status(500).json({ error: 'Failed to save score' });
+          } else {
+            res.status(200).json({ message: 'Score saved successfully' });
+          }
+        });
+      }
+    }
   });
-  
-  
+});
 
 app.get('/get', (req, res) => {
-  Score.findOne().sort({ createdAt: -1 }).exec()
-    .then((score) => {
-      if (score) {
-        res.status(200).json({ best: score.best });
-      } else {
-        res.status(200).json({ best: 0 });
+  fs.readFile(databasePath, 'utf8', (err, data) => {/////////////
+    if (err) {
+      console.error(err);
+      res.status(500).json({ error: 'Failed to read database', details: err.message });
+    } else {
+      try {
+        const scores = JSON.parse(data);///////////
+        if (scores.length > 0) {
+          const bestScore = scores.reduce((prev, current) => (prev.best > current.best ? prev : current));
+          res.status(200).json({ best: bestScore.best });
+        } else {
+          res.status(200).json({ best: 0 });
+        }
+      } catch (parseError) {
+        console.error(parseError);
+        res.status(500).json({ error: 'Failed to parse database', details: parseError.message });
       }
-    })
-    .catch((error) => {
-      res.status(500).json({ error: 'Failed to fetch score' });
-    });
+    }
+  });
 });
 
 

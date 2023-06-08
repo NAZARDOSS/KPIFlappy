@@ -18,35 +18,35 @@ function App() {
   };
 
   const restartGame = () => {
-    const canvas = document.getElementById("canvas");
-    const ctx = canvas.getContext("2d");
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
     const game = Game(canvas, ctx, 2, updateScore);
     game.start();
   };
 
   useEffect(() => {
-    const canvas = document.getElementById("canvas");
-    const ctx = canvas.getContext("2d");
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
     const game = Game(canvas, ctx, 2, updateScore);
     game.start();
   }, []);
 
   useEffect(() => {
     fetch('http://localhost:3001/get')
-      .then(response => response.json())
-      .then(response => {
+      .then((response) => response.json())
+      .then((response) => {
         const { best: bestFromServer } = response;
         setServerBest(bestFromServer);
       })
-      .catch(error => {
+      .catch((error) => {
         console.error('Error:', error);
       });
   }, []);
 
   return (
     <div className="main">
-      <h1 className='title'>Flappy Bird</h1>
-      <div className='container'>
+      <h1 className="title">Flappy Bird</h1>
+      <div className="container">
         <SideInfo score={score} best={Math.max(localBest, serverBest)} restartGame={restartGame} />
         <div className="game">
           <canvas id="canvas" width={390} height={525} />

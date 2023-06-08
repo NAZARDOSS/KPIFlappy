@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 
 function SideInfo({ score, best, restartGame }) {
-  const [data, setData] = useState(null);
+  const [bestData, setBest] = useState(null);
   const [inputValue, setInputValue] = useState(best);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    setData(best);
+    setBest(best);
     setInputValue(best);
   }, [best]);
 
@@ -22,7 +22,7 @@ function SideInfo({ score, best, restartGame }) {
     fetch('http://localhost:3001/get')
       .then((response) => response.json())
       .then((response) => {
-        setData(response.best);
+        setBest(response.best);
         setInputValue(response.best);
       })
       .catch((error) => {
@@ -47,7 +47,7 @@ function SideInfo({ score, best, restartGame }) {
           }, 2500);
         } else {
           setError(null);
-          setData(response.best);
+          setBest(response.best);
           handleGet();
           setInputValue(response.best);
         }
@@ -60,13 +60,13 @@ function SideInfo({ score, best, restartGame }) {
   const errorStyles = {
     color: 'red',
     opacity: error ? 1 : 0,
-    transition: 'opacity 1s ease', 
+    transition: 'opacity 1s ease',
   };
 
   return (
     <div className="record">
       <h1>Your Score: {score}</h1>
-      <h1>Your Best: {data}</h1>
+      <h1>Your Best: {bestData}</h1>
       <div>
         <div>
           <button onClick={handleRestart}>Restart Game</button>
