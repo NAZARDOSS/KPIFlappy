@@ -10,7 +10,7 @@ function Game(canvas, ctx, speed, updateScore) {
   const game = {
     canvas,
     ctx,
-    speed: 2,
+    speed: 3,
     autoMode: false,
     gameСlass: new GameClass(),
     pipes: [new Pipe(canvas.width, 0, speed)],
