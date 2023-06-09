@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/KPIFlappy/static/css/main.6b5d8236.css",
-    "main.js": "/KPIFlappy/static/js/main.2ca5216e.js",
+    "main.js": "/KPIFlappy/static/js/main.ff6ae080.js",
     "static/media/flappy_bird_bg.jpg": "/KPIFlappy/static/media/flappy_bird_bg.02588dd4d2d59848770e.jpg",
     "static/media/flappy_bird_pipeBottom.png": "/KPIFlappy/static/media/flappy_bird_pipeBottom.d354aa8707984cd12865.png",
     "static/media/flappy_bird_pipeUp.png": "/KPIFlappy/static/media/flappy_bird_pipeUp.3e4cf42d22cd53ad5b3d.png",
@@ -9,10 +9,10 @@
     "static/media/flappy_bird_bird.png": "/KPIFlappy/static/media/flappy_bird_bird.71e31e9e1627409c2340.png",
     "index.html": "/KPIFlappy/index.html",
     "main.6b5d8236.css.map": "/KPIFlappy/static/css/main.6b5d8236.css.map",
-    "main.2ca5216e.js.map": "/KPIFlappy/static/js/main.2ca5216e.js.map"
+    "main.ff6ae080.js.map": "/KPIFlappy/static/js/main.ff6ae080.js.map"
   },
   "entrypoints": [
     "static/css/main.6b5d8236.css",
-    "static/js/main.2ca5216e.js"
+    "static/js/main.ff6ae080.js"
   ]
 }
